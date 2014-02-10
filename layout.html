@@ -8,22 +8,22 @@
 
 <style>
 .render-block {
-	position: absolute;
-	background-color: #339f63;
-	color: white;
-	text-indent: 10px;
-	line-height: 40px;
-	vertical-align: center;
+    position: absolute;
+    background-color: #339f63;
+    color: white;
+    text-indent: 10px;
+    line-height: 40px;
+    vertical-align: center;
 }
 #root {
-	position: absolute;
-	left: 20px;
-	top: 20px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
 }
 #myButton {
-	position: absolute;
-	left: 10px;
-	top: 800px;
+    position: absolute;
+    left: 10px;
+    top: 800px;
 }
 </style>
 
@@ -39,71 +39,65 @@
 
 <script type="text/javascript">
 
-	var root = document.getElementById('root');
+    var root = document.getElementById('root');
     var L = layoutManager();
     L.createGrid(5, 5);
 
     function setElemRect(e, x, y, width, height) {
-    	e.style.setProperty("left", x + 'px');
-    	e.style.setProperty("top", y + 'px');
-    	e.style.setProperty("width", width + 'px');
-    	e.style.setProperty("height", height + 'px');
+        e.style.setProperty("left", x + 'px');
+        e.style.setProperty("top", y + 'px');
+        e.style.setProperty("width", width + 'px');
+        e.style.setProperty("height", height + 'px');
     }
 
     function drawGrid(name, x, y, width, height) {
-    	var S = 80;
-    	var E = 2;
-    	// ctx.fillStyle = "#000000";
-    	// ctx.fillRect(x * S, y * S, width * S - E, height * S - E);
-    	// ctx.fillStyle = "#FFFFFF";
-    	// ctx.fillText(name, x * S + 2, y * S + 12);
-    	var g = document.getElementById(name);
-    	if ( g == null ) {
-    		g = document.createElement('div');
-    		g.className = 'render-block';
-    		g.style.setProperty("-webkit-transition", "left 400ms, top 400ms, width 400ms, height 400ms");
-	    	root.appendChild(g);
-    	}
-    	g.id = name;
-    	g.innerText = name;
-    	setElemRect(g, x * S, y * S, width * S - E, height * S - E);
+        var S = 80;
+        var E = 2;
+        var g = document.getElementById(name);
+        if ( g == null ) {
+            g = document.createElement('div');
+            g.className = 'render-block';
+            g.style.setProperty("-webkit-transition", "left 400ms, top 400ms, width 400ms, height 400ms");
+            root.appendChild(g);
+        }
+        g.id = name;
+        g.innerText = name;
+        setElemRect(g, x * S, y * S, width * S - E, height * S - E);
     }
 
     function relayout() {
-	    for ( var i = 0 ; i < L.elem.length ; ++ i ) {
-	    	var G = L.elem[i];
-	    	drawGrid(G.name, G.x, G.y, G.width, G.height);
-	    }
+        for ( var i = 0 ; i < L.elem.length ; ++ i ) {
+            var G = L.elem[i];
+            drawGrid(G.name, G.x, G.y, G.width, G.height);
+        }
     }
 
-	function testLayout() {
-	    L.fit();
-	    relayout();
+    function testLayout() {
+        L.fit();
+        relayout();
 
-	    var canvas = document.getElementById('myCanvas');
-	    var ctx = canvas.getContext('2d');
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+    }
 
+    testLayout();
 
-	}
-
-	testLayout();
-
-	document.addEventListener('click', function(evt){
-		if ( evt.target.classList.contains('render-block') ) {
-			var e = evt.target;
-			var id = parseInt(e.innerText);
-			var G = L.elem[id];
-			if ( G.width > 1 || G.height > 1 ) {
-				G.width = 1;
-				G.height = 1;
-			} else {
-				G.width = Math.floor(Math.random() / 0.3) + 2;
-				G.height = Math.floor(Math.random() / 0.25) + 2;
-			}
-			L.fit();
-	    	relayout();
-		}
-	});
+    document.addEventListener('click', function(evt){
+        if ( evt.target.classList.contains('render-block') ) {
+            var e = evt.target;
+            var id = parseInt(e.innerText);
+            var G = L.elem[id];
+            if ( G.width > 1 || G.height > 1 ) {
+                G.width = 1;
+                G.height = 1;
+            } else {
+                G.width = Math.floor(Math.random() / 0.3) + 2;
+                G.height = Math.floor(Math.random() / 0.25) + 2;
+            }
+            L.fit();
+            relayout();
+        }
+    });
 
 </script>
 

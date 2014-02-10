@@ -1,16 +1,16 @@
 'use strict';
 
 function layoutBlock(parent, x, y) {
-	// Orig X/Y doesn't force the position
+    // Orig X/Y doesn't force the position
     this.origX = x;
-	this.origY = y;
+    this.origY = y;
 
-	this.width = 0;
-	this.height = 0;
-	this.x = 0;
-	this.y = 0;
+    this.width = 0;
+    this.height = 0;
+    this.x = 0;
+    this.y = 0;
 
-	this.parent = parent;
+    this.parent = parent;
 }
 
 layoutBlock.prototype = {
@@ -28,8 +28,8 @@ function layoutManager() {
         for (var i = 0 ; i < row * col ; ++ i) {
             var pos = toRowCol(that, i);
             var G = new layoutBlock(this, pos.row, pos.col);
-			G.width = 1;
-			G.height = 1;
+            G.width = 1;
+            G.height = 1;
             G.name = "" + i;
             that.elem.push(G);
         }
@@ -123,19 +123,19 @@ function layoutManager() {
         return flag;
     };
 
-	that.fit = function (fillAllBlanks) {
+    that.fit = function (fillAllBlanks) {
         if ( fillAllBlanks == null ) { fillAllBlanks = false; }
         
-		var gridCount = that.row * that.col;
+        var gridCount = that.row * that.col;
         that.map = new Array();
 
-		for ( var i = 0 ; i < gridCount ; ++ i ) {
+        for ( var i = 0 ; i < gridCount ; ++ i ) {
             that.map.push(DEFAULT_FLAG);
-		}
+        }
 
         var mapIndex = 0;
-		for ( var i = 0 ; i < that.elem.length ; ++ i ) {
-			var G = that.elem[i];
+        for ( var i = 0 ; i < that.elem.length ; ++ i ) {
+            var G = that.elem[i];
 
             if ( fillAllBlanks ) {
                 mapIndex = findNextFreeMap(that);
@@ -168,11 +168,11 @@ function layoutManager() {
             setMapFlag(that, mapPos.row, mapPos.col, G.name, G.width, G.height);
 
             mapIndex = findNextFreeMap(that, mapIndex);
-		}
+        }
 
         console.log(that.map);
         console.log(that.elem);
-	};
+    };
     
     return that;
 };
